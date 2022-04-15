@@ -45,20 +45,32 @@ class GFG {
 
 class Solution {
     public long kthElement( int arr1[], int arr2[], int n, int m, int k) {
-        int ans[] = new int [n + m + 1];
-        int a = 0;
-        for(int i = 0 ; i < n ; i++){
-            ans[i] = arr1[i];
-        }
-        for(int j = 0 ; j < m ;j++){
-            ans[n+j] = arr2[j];
-        }
-        Arrays.sort(ans);
         
-        for(int i = 0 ; i < n+m + 1;i++){
-            a = ans[k];
-        }
-        return a;
-        
+        int arr[] = new int[n+m];
+       int i=0,j=0,k1=0;
+       Arrays.sort(arr1);
+       Arrays.sort(arr2);
+       while(i<n && j<m){
+           if(arr1[i]<arr2[j]){
+               arr[k1++]=arr1[i];
+               i++;
+           }
+           else{
+               arr[k1++]=arr2[j];
+               j++;
+           }
+       }
+       if(i==n)
+       while(j<m){
+           arr[k1++]=arr2[j++];
+       }
+       if(j==m)
+       while(i<n){
+           arr[k1++]=arr1[i++];
+       }
+       
+       Long ans = new Long(arr[k-1]);
+       return ans;
+   
     }
 }
