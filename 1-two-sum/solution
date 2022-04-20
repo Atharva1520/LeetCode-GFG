@@ -1,0 +1,32 @@
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+       /* for(int i = 0; i < nums.length; i++){
+           int j = nums.length - 1;
+           while(i != j){
+                if(nums[i] + nums[j] == target){
+                    int[] ans = new int[2];
+                    ans[0] = i;
+                    ans[1] = j;
+                    return ans;
+                }else{
+                    j--;
+                }
+           }
+       } 
+       
+        return new int[2]; */
+        
+        HashMap<Integer,Integer> s = new HashMap<>();
+        int a[] = new int[2];
+        int n = nums.length;
+        for(int i = 0 ; i  <n ;i++){
+            if(s.containsKey(target - nums[i])){
+            a[0] = s.get(target - nums[i]);
+            a[1]  = i;
+            break;
+        }
+        s.put(nums[i],i);
+    }
+        return a;
+    }
+}
