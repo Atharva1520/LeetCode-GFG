@@ -21,7 +21,7 @@ class GFG {
 // User function template for Java
 class Solution {
     static int commonSubseq(String S1, String S2){
-      int ans = 0 ;
+        int ans = 0 ;
         for(int i= 0; i<S2.length();i++){
             char ch = S1.charAt(i);
             
