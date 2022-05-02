@@ -31,21 +31,23 @@ class Solution
     //Function to find triplets with zero sum.
 	public boolean findTriplets(int arr[] , int n)
     {
-        Arrays.sort(arr);
-        for(int i = 0 ;  i < n-2;i++){
-            int j = i+1;
-            int k = n-1;
-            while(j < k){
-                if(arr[i] + arr[j] + arr[k] == 0){
-                    return true;
-                }
-                else if(arr[i] + arr[j] + arr[k] < 0){
-                    j++;
-                }else{
-                    k--;
-                }
-            }}
-            return false;
-        
+        for(int i=0;i<n-1;i++)
+       {
+           HashSet<Integer> s=new HashSet<Integer>();
+           for(int j=i+1;j<n;j++)
+           {
+               int x=-(arr[i]+arr[j]);
+               if(s.contains(x))
+               {
+                   return true;
+               }
+               else
+               {
+                   s.add(arr[j]);
+               }
+               
+           }
+       }
+       return false;
     }
 }
