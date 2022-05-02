@@ -5,6 +5,15 @@ class Solution {
         for(int n: nums){
             map.put(n, map.getOrDefault(n,0)+1);
         }
+        
+        //using bucket tech above map is same difference is just
+        /*for (int key : frequencyMap.keySet()) {
+		int frequency = frequencyMap.get(key);
+		if (bucket[frequency] == null) {
+			bucket[frequency] = new ArrayList<>();
+		}
+		bucket[frequency].add(key);
+	}*/
            
         PriorityQueue<Map.Entry<Integer, Integer>> maxHeap = 
                          new PriorityQueue<>((a,b)->(b.getValue()-a.getValue()));
