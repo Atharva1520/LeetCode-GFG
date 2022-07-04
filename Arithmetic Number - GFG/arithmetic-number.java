@@ -25,17 +25,22 @@ class GFG{
 //User function Template for Java
 
 class Solution{
-    static int inSequence(int A, int B, int C){
-     
-       if(C==0){
-         if(A==B)  return 1;
-         return 0;
-     }
-        double k=(double)((B-A))/C+1;
-       
-        if(k>0&&k==(int)k)
-        return 1;
-        else 
-        return 0;
+    static int inSequence(int a, int b, int c){
+        if(c == 0)
+       {
+           if(a==b) return 1;
+           else return 0;
+       }
+       else
+       {
+           if((b-a)/c <0) return 0;
+           
+           else{
+               if((b-a)%c == 0)return 1;
+               else
+                   return 0;
+           }
+       }
+    
     }
 }
