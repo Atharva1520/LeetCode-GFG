@@ -1,11 +1,11 @@
 class Solution {
-   
+    ArrayList<List<Integer>>  ans ;
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
-         ArrayList<List<Integer>>  ans = new ArrayList<>();
-        find(0,target,ans,candidates,new ArrayList<>());
+       ans = new ArrayList<>();
+        find(0,target,candidates,new ArrayList<>());
         return ans;
     }
-    public void find(int index,int target,List<List<Integer>> ans,int arr[],List<Integer> ds ){
+    public void find(int index,int target,int arr[],List<Integer> ds ){
          
         if(target == 0){
            ans.add(new ArrayList<> (ds));
@@ -16,9 +16,9 @@ class Solution {
        
         if(arr[index] <= target){
             ds.add(arr[index]);
-            find(index,target - arr[index],ans,arr,ds);
+            find(index,target - arr[index],arr,ds);
             ds.remove(ds.size() - 1);
         }
-        find(index + 1,target,ans,arr,ds);
+        find(index + 1,target,arr,ds);
     }
 }
