@@ -1,12 +1,17 @@
 class Solution {
     public boolean canPartition(int[] arr) {
-         int n=arr.length;
-        int k=0;
-		for(int i:arr)
-			k+=i;
-		if(k%2==1)
-			return false;
-		k/=2;
+        
+         int n = arr.length;
+        int sum =0;
+        
+        for(int i=0;i<n;i++){sum+= arr[i];}
+        if(sum % 2==0){
+      return  isSubsetSum(n,arr,sum/2);}
+       else return false;
+       
+    }
+    static Boolean isSubsetSum(int n, int arr[], int k){
+       
         boolean[] prev=new boolean[k+1];
         boolean[] cur=new boolean[k+1];
         
