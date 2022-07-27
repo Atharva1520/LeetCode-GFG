@@ -3,8 +3,9 @@ class Solution {
          int n = a.length;
         int[][] after=new int[2][k+1];
         //ind->i,buy->j
+        int[][] cur=new int[2][k+1];
         for(int i=n-1; i>=0; i--){
-            int[][] cur=new int[2][k+1];
+            
             for(int j=0; j<=1; j++){
                 for(int cap=1; cap<=k; cap++){
                     int profit = 0;
