@@ -1,28 +1,39 @@
 class Solution {
-    int func(int ind,int profit,int canBuy,int[] arr,int currTrans,int[][][] dp) {
-        if(ind == arr.length) return 0;
-        if(currTrans == 2) return 0;
+    public int maxProfit(int[] a) {
+        int n = a.length;
+        int[][][] dp=new int[n+1][2][3];
         
-        if(dp[ind][canBuy][currTrans] != -1) return dp[ind][canBuy][currTrans];
-        if(canBuy == 1) {
-            profit = Math.max( -arr[ind] + func(ind+1,profit,0,arr,currTrans,dp), func(ind+1,profit,1,arr,currTrans,dp));
+        for(int i=0; i<=n; i++){
+            for(int b=0; b<=1; b++){
+                dp[i][b][0] = 0;
+            }
         }
-        else {
-            //currTrans += 1;
-            profit = Math.max(arr[ind] + func(ind+1,profit,1,arr,currTrans+1,dp) , func(ind+1,profit,0,arr,currTrans,dp));
+        
+        for(int b=0; b<=1; b++){
+            for(int cap=0; cap<=2; cap++){
+                dp[n][b][cap] = 0;
+            }
         }
-        return dp[ind][canBuy][currTrans] = profit;
-    }
-    public int maxProfit(int[] prices) {
-        int[][][] dp = new int[prices.length+1][2][2];
-        for(int i = 0;i <= prices.length;i++) {
-            for(int j = 0;j < 2;j++) {
-                for(int k = 0;k < 2;k++) {
-                    dp[i][j][k] = -1;
+        
+        for(int i=n-1; i>=0; i--){
+            for(int b=0; b<=1; b++){
+                for(int cap=1; cap<=2; cap++){
+                    int profit = 0;
+                    
+                    if(b==1){
+                        int buy = -a[i] + dp[i+1][0][cap];
+                        int notBuy = dp[i+1][1][cap];
+                        profit = Math.max(buy,notBuy);
+                    }else{
+                        int sell = a[i] + dp[i+1][1][cap-1];
+                        int notSell = dp[i+1][0][cap];
+                        profit = Math.max(sell,notSell);
+                    }
+                    dp[i][b][cap] = profit;
                 }
             }
         }
-        return func(0,0,1,prices,0,dp);
+        
+        return dp[0][1][2];
     }
-    
 }
