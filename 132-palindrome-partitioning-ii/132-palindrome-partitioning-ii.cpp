@@ -15,8 +15,8 @@ public:
         return true;
     }
     int minCut(string s) {
-     int n = s.length();
-        vector<int> dp(s.length()+2, 0);
+     int n = s.size();
+        vector<int> dp(n+2, 0);
         
         for(int i=n-1; i>=0; i--)
         {
