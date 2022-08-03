@@ -16,7 +16,7 @@ public:
     }
     int minCut(string s) {
      int n = s.size();
-        vector<int> dp(n+2, 0);
+        vector<int> dp(n+1, 0);
         
         for(int i=n-1; i>=0; i--)
         {
