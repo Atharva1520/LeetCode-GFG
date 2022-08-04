@@ -1,9 +1,15 @@
 class Solution {
-    public boolean containsDuplicate(int[] nums) {
-       LinkedHashSet <Integer> set = new LinkedHashSet<>();
-        for(int i=0;i<nums.length;i++){
-            set.add(nums[i]);
+public:
+    bool containsDuplicate(vector<int>& nums) {
+         bool flag = false;
+        unordered_map <int, int> count;
+        for(auto i:nums) {
+            if(count[i]>0){
+                flag = true;
+                break;
+            }
+            count[i]++;
         }
-      return set.size() != nums.length;
+        return flag;
     }
-}
+};
