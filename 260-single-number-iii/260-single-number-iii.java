@@ -1,21 +1,15 @@
 class Solution {
     public int[] singleNumber(int[] nums) {
-        Arrays.sort(nums);
-    ArrayList<Integer> list = new ArrayList<Integer>();
+        Map<Integer, Integer> hm=new HashMap<>();
+    int[] arr=new int[2];
+    int i=0;
+    for(int n:nums)
+        hm.put(n, hm.getOrDefault(n,0)+1);
     
-    for(int i = 0 ; i<nums.length ; i++){
-        if( i < nums.length-1 && nums[i] == nums[i+1]){
-            i = i+1;
-        }
-        else{
-            list.add(nums[i]);
-        }
+    for(Map.Entry<Integer, Integer> entry:hm.entrySet()){
+        if(entry.getValue()==1)
+            arr[i++]=entry.getKey();
     }
-    
-    int [] ans = new int[list.size()];
-    for(int i = 0 ; i<list.size(); i++){
-        ans[i] = list.get(i);    
-    }
-    return ans;
+    return arr;
     }
 }
