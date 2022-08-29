@@ -1,11 +1,23 @@
 class Solution {
     public int singleNumber(int[] nums) {
-          Map<Integer,Integer> map = new HashMap<>();
-        for(int i=0;i<nums.length;i++)
-            map.put(nums[i],map.getOrDefault(nums[i],0)+1);
-        for(Map.Entry m : map.entrySet())
-            if((int)m.getValue()==1)
-                return (int)m.getKey();
-        return 0;
+         Arrays.sort(nums);
+
+        if (nums.length == 1) return nums[0];
+        
+        if (nums[0] != nums[1]) return nums[0];
+
+        if (nums[nums.length - 2] != nums[nums.length - 1]) return nums[nums.length - 1];
+
+       
+        for (int i = 1; i < nums.length;) {
+            if (nums[i] == nums[i - 1]) {
+                i+=3;
+            } else {
+                return nums[i-1];
+            }
+        }
+        
+         
+        return 0; 
     }
 }
