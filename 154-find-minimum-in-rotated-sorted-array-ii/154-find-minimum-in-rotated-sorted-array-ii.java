@@ -1,9 +1,17 @@
 class Solution {
     public int findMin(int[] nums) {
-        int min = Integer.MAX_VALUE;
-        for(int i=0;i<nums.length;i++){
-             min = Math.min(min,nums[i]);
+       for(int i = 0; i < nums.length - 1; i++){
+           if(nums[i] > nums[i + 1]){
+               return nums[i + 1];
+           }
+        
+       }
+        if(nums[0] > nums[nums.length - 1]){
+            return nums[nums.length - 1];
+            
         }
-        return min;
+        else{
+            return nums[0];
+        }
     }
 }
