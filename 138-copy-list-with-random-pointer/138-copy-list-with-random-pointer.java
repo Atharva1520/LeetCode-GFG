@@ -15,18 +15,41 @@ class Node {
 
 class Solution {
     public Node copyRandomList(Node head) {
-          HashMap<Node, Node> map = new HashMap<Node, Node>();
-    Node p = head;
-    while(p != null){
-        map.put(p, new Node(p.val));
-        p = p.next;
+        //step 1
+        Node p = head;
+        Node front = head;
+        while(p != null){
+            front = p.next;
+            Node copy = new Node(p.val);
+            p.next = copy;
+            copy.next = front;
+            p = front;
+        }
+      
+
+  
+        //step 2
+        p = head;
+        while(p != null){
+             if (p.random != null) {
+      p.next.random = p.random.next;
     }
-    Node q = head;
-    while(q != null){
-        map.get(q).next = map.get(q.next);
-        map.get(q).random = map.get(q.random);
-        q = q.next;
-    }
-    return map.get(head);
+            p = p.next.next;
+        }
+         
+        //step 3
+        p = head;
+        Node phead = new Node(0);
+      Node  copy = phead;
+        while(p != null){
+            front = p.next.next;
+           copy.next = p.next;
+            p.next = front;
+            copy = copy.next;
+            p=p.next;
+        }
+        return phead.next;
+        
     }
 }
+ 
