@@ -7,7 +7,7 @@ class Solution {
         int l = 0;
         for (int r = 0; r < str.length(); r++) 
         {
-            if (set.contains(str.charAt(r))) 
+            if (set.contains(str.charAt(r)))
             {
                 while (l < r && set.contains(str.charAt(r))) {
                     set.remove(str.charAt(l));
