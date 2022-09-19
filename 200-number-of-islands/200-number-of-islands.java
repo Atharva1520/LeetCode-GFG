@@ -1,13 +1,3 @@
-class Pair{
-int first,second;
-
-Pair(int first,int second)
-{
-    this.first = first;
-    this.second = second;
-}
-}
-
 class Solution {
 public int numIslands(char[][] grid) {
 int m = grid.length;
@@ -33,36 +23,13 @@ int n = grid[0].length;
 
 private void solve(char[][] grid,int i,int j,boolean[][] visited)
 {
+    if(i < 0 || j < 0 || i >= grid.length || j >= grid[0].length || visited[i][j] == true || grid[i][j] == '0') return;
+  
     visited[i][j] = true;
-    
-   Queue<Pair> q = new LinkedList<Pair>();
 
-   q.offer(new Pair(i,j));
-   
-   while(!q.isEmpty())
-   {
-     int raw = q.peek().first;
-     int col = q.peek().second;
-     q.poll();
-       
-       //visiting for 4 directions
-       
-       int[][] dirs = {{0,1},{1,0},{0,-1},{-1,0}};
-       
-       for(int[] alldirs : dirs)
-       {
-               int rawt = raw + alldirs[0];
-               int colt = col + alldirs[1];
-               
-                if(rawt>=0 && rawt < grid.length && colt >=0 && colt < grid[0].length){
-                    
-                    if(grid[rawt][colt] == '1' && visited[rawt][colt] == false){
-                        visited[rawt][colt] = true;
-                        q.add(new Pair(rawt,colt));
-                    }
-                    
-                }
-           }
-      }
-  }
+    solve(grid,i+1,j,visited);
+    solve(grid,i-1,j,visited);
+    solve(grid,i,j+1,visited);
+    solve(grid,i,j-1,visited);
+}
 }
