@@ -1,56 +1,51 @@
-class Pair{
-    int r;
-    int c;
-    int t;
-    Pair(int r,int c,int t){
-        this.r =r;
-        this.c =c;
-        this.t = t;
-        
-    }
-}
-
 class Solution {
-    public int orangesRotting(int[][] grid) {
+    class Pair{
+        int i;
+        int j;
+        int t;
+        public Pair(int i, int j, int t){
+            this.i = i;
+            this.j = j;
+            this.t = t;
+        }
+    }
+    public int orangesRotting(int[][] grid){
         int n = grid.length;
         int m = grid[0].length;
+        int count = 0;
         Queue<Pair> q = new LinkedList<>();
-        int vis[][]=new int[n][m];
-    int cntFresh=0;
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if(grid[i][j]==2){
-                    q.add(new Pair(i,j,0));
-                    vis[i][j]=1;
-                }else{
-                    vis[i][j]=0;
-                }
-                if(grid[i][j] == 1)cntFresh++;
-            }
-        }
-        int tm =0;
-        int drow[]={-1,0,1,0};
-        int dcol[]={0,1,0,-1};
-        int cnt=0;
-        while(!q.isEmpty()){
-            int r = q.peek().r;
-            int c = q.peek().c;
-            int t = q.peek().t;
-            tm = Math.max(tm,t);
-            q.remove();
-            for(int i=0;i<4;i++){
-                int nr=r+drow[i];
-                int nc = c + dcol[i];
-                if(nr >= 0 && nr < n && nc >=0 && nc <m&&vis[nr][nc] == 0  
-                   && grid[nr][nc] == 1){
-                    q.add(new Pair(nr,nc,t+1));
-                    vis[nr][nc]=1;
-                    cnt++;
+        for(int i = 0; i<n; i++){
+            for(int j = 0;j<m;j++){
+                if(grid[i][j] == 2)
+                    q.offer(new Pair(i, j, 0));
+                else if(grid[i][j] == 1){
+                    count++;
                 }
             }
         }
-        if(cnt != cntFresh)return -1;
         
-        return tm;
+        int time = 0;
+        int[] rowAdd = {-1, 0, +1, 0};
+        int[] colAdd = {0, +1, 0, -1};
+        int cou = 0;
+        while(!q.isEmpty()){
+            Pair p = q.poll();
+            int i = p.i;
+            int j = p.j;
+            int tt = p.t;
+            time = Math.max(time, tt);
+            for(int ii = 0; ii<4; ii++){
+                int rr = rowAdd[ii]+ i;
+                int cc = colAdd[ii]+ j;
+                if(rr>=0 && rr<=n-1 && cc>=0 && cc<= m-1 && grid[rr][cc] == 1){
+                    q.offer(new Pair(rr, cc, tt+1));
+                    grid[rr][cc] = 2;
+                    cou++;
+                }
+            }
+        }
+        if(cou != count)
+            return -1;
+        return time;
     }
 }
