@@ -1,10 +1,15 @@
 class Solution {
     public int singleNonDuplicate(int[] nums) {
-        int n = nums.length;
-        int ele=0;
-        for(int i=0;i<n;i++){
-            ele = nums[i] ^ ele;
+        int l=0;
+        int h = nums.length-2;
+        while(l<=h){
+            int m = l + (h-l)/2;
+            if(nums[m] == nums[m^1]){
+                l = m+1;
+            }else{
+                h = m-1;
+            }
         }
-        return ele;
+        return nums[l];
     }
 }
