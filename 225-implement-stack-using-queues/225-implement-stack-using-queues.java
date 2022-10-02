@@ -1,31 +1,32 @@
 class MyStack {
-        int [] st;
-    int top;
+    Queue<Integer> q1;
+    Queue<Integer> q2;
     public MyStack() {
-        st = new int[10000];
-        Arrays.fill(st,-1);
-        top = -1;
+        q1=new LinkedList<>();
+        q2 = new LinkedList<>();
     }
     
     public void push(int x) {
-        top++;
-        st[top]=x;
+        q2.add(x);
+        while(q1.size()!=0){
+            q2.add(q1.remove());
+        }
+        while(q2.size()!=0){
+            q1.add(q2.remove());
+        }
         
     }
     
     public int pop() {
-        int x = st[top];
-        top--;
-        return x;
+         return q1.remove();  
     }
     
     public int top() {
-        return st[top];
+        return q1.peek();
     }
     
     public boolean empty() {
-       if(top +1 == 0)return true;
-        else return false;
+       return q1.size()==0; 
     }
 }
 
