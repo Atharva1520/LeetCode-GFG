@@ -1,15 +1,16 @@
 class Solution {
     public boolean isSubsequence(String s, String t) {
-        return f(0,0,s,t);
-    }
-    static boolean f(int i,int j,String s,String t){
-        if(i == s.length())return true;
-        if(i < s.length() && j == t.length())return false;
-        if(s.charAt(i) == t.charAt(j)){
-          return  f(i+1,j+1,s,t);
-        }else{
-          return  f(i,j+1,s,t);
+         int n = s.length() , m = t.length();
+        int[][] dp = new int[n+1][m+1];
+        for(int i = 1; i <= n;i++){
+            for(int j = 1; j <= m;j++){
+                if(s.charAt(i-1) == t.charAt(j-1)){
+                    dp[i][j] = 1 + dp[i-1][j-1];
+                }else{
+                    dp[i][j] = Math.max(dp[i-1][j] , dp[i][j-1]);
+                }
+            }
         }
-        
+        return dp[n][m] == n;
     }
 }
