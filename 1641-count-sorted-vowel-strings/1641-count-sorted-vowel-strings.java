@@ -1,7 +1,7 @@
 class Solution {
    int count =0;
     public int countVowelStrings(int n) {
-        String[] s= new String[]{"a","e","i","o","u"};
+        String[] s= new String[]{"e","i","o","u","a"};
         
        int ans = solve(0,n,s);
         return ans;
