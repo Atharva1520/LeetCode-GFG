@@ -1,19 +1,12 @@
 class Solution {
     public int[] shuffle(int[] nums, int n) {
-        int i=0;
-        int j = nums.length / 2;
-        int ans[] = new int[nums.length];
-        int k=0;
-        while(k<nums.length){
-            if(k % 2 == 0){
-                ans[k]=nums[i];
-                i++;
-            }else{
-                ans[k]=nums[j];
-                j++;
-            }
-            k++;
+        for(int i=0;i<n;i++){
+            nums[i] += nums[n+i]*10000;
         }
-        return ans;
+        for(int i=n-1;i>=0;i--){
+            nums[2*i+1] = nums[i] / 10000;
+            nums[2*i] = nums[i] % 10000;
+        }
+        return nums;
     }
 }
