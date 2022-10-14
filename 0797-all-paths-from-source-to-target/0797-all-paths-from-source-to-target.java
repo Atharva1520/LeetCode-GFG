@@ -1,24 +1,30 @@
 class Solution {
     public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
-          List<List<Integer>> res = new ArrayList<>();
-        LinkedList<Integer> list = new LinkedList<>();
-        list.add(0);
-
-        helper_backtracking(graph, 0, graph.length - 1, res, list);
-        return res;
-    }
-
-    private void helper_backtracking(int[][] graph, int source, int target,
-                        List<List<Integer>> res, LinkedList<Integer> list){
-        if (source == target) {
-            res.add(new ArrayList<>(list));
-            return;
+           List<List<Integer>> ans = new ArrayList<>();
+        
+        Queue<List<Integer>> q = new LinkedList<>();
+        
+        
+        List<Integer> currList = new ArrayList<>();
+        currList.add(0);
+        
+        q.add(currList);
+        
+        while(!q.isEmpty()) {
+            currList = q.poll();
+             
+            int v = currList.get(currList.size() - 1);
+            if(v == graph.length - 1) {
+                ans.add(currList);
+                continue;
+            }
+            
+            for(int i : graph[v]) {
+                List<Integer> temp = new ArrayList<>(currList);
+                temp.add(i);
+                q.add(temp);
+            }
         }
-
-        for (int neighbour: graph[source]) {
-            list.add(neighbour);
-            helper_backtracking(graph, neighbour, target, res, list);
-            list.removeLast();
-        }
+        return ans;
     }
 }
