@@ -1,16 +1,16 @@
 class Solution {
     public int minimumSum(int num) {
-        int [] nums = new int[4];
-        int i=0;
-        while(num > 0){
-            nums[i]=num%10;
-            num =num/10;
-            i++;
+         PriorityQueue<Integer>pq=new PriorityQueue<>();
+
+        while(num>0){
+            pq.offer(num%10);
+            num/=10;
         }
-        Arrays.sort(nums);
-        int num1 = nums[0] * 10 + nums[3];
-        int num2 = nums[1]*10  + nums[2];
-        return num1+num2;
-        
+		
+        int a=10*pq.remove();
+        int b=10*pq.remove();
+        int c=pq.remove();
+        int d=pq.remove();
+        return a+b+c+d;
     }
 }
