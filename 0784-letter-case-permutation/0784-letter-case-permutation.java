@@ -3,26 +3,24 @@ class Solution {
         if (S == null) {
             return new LinkedList<>();
         }
+        Queue<String> queue = new LinkedList<>();
+        queue.offer(S);
         
-        List<String> res = new LinkedList<>();
-        helper(S.toCharArray(), res, 0);
-        return res;
-    }
-    
-    public void helper(char[] chs, List<String> res, int pos) {
-        if (pos == chs.length) {
-            res.add(new String(chs));
-            return;
+        for (int i = 0; i < S.length(); i++) {
+            if (Character.isDigit(S.charAt(i))) continue;            
+            int size = queue.size();
+            for (int j = 0; j < size; j++) {
+                String cur = queue.poll();
+                char[] chs = cur.toCharArray();
+                
+                chs[i] = Character.toUpperCase(chs[i]);
+                queue.offer(String.valueOf(chs));
+                
+                chs[i] = Character.toLowerCase(chs[i]);
+                queue.offer(String.valueOf(chs));
+            }
         }
-        if (chs[pos] >= '0' && chs[pos] <= '9') {
-            helper(chs, res, pos + 1);
-            return;
-        }
         
-        chs[pos] = Character.toLowerCase(chs[pos]);
-        helper(chs, res, pos + 1);
-        
-        chs[pos] = Character.toUpperCase(chs[pos]);
-        helper(chs, res, pos + 1);
+        return new LinkedList<>(queue);
     }
 }
