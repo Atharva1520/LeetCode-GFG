@@ -1,18 +1,18 @@
 class Solution {
     public List<List<Integer>> combine(int n, int k) {
-        List<List<Integer>> ans = new ArrayList<>();
-        f(ans,new ArrayList<>(),n , k,1);
-        return ans;
-        
-    }
-    static void f(List<List<Integer>> ans,List<Integer> cur,int n,int k,int start){
-        if(k==0){
-            ans.add(new ArrayList<>(cur));
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        if (k > n || k < 0) {
+            return result;
         }
-        for(int i=start;i<=n;i++){
-            cur.add(i);
-            f(ans,cur,n,k-1,i+1);
-            cur.remove(cur.size() - 1);
+        if (k == 0) {
+            result.add(new ArrayList<Integer>());
+            return result;
         }
+        result = combine(n - 1, k - 1);
+        for (List<Integer> list : result) {
+            list.add(n);
+        }
+        result.addAll(combine(n - 1, k));
+        return result;
     }
 }
