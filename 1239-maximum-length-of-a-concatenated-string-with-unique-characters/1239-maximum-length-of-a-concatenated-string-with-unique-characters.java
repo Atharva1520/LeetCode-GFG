@@ -1,44 +1,25 @@
 class Solution {
+     int res = 0;
     public int maxLength(List<String> arr) {
-        return solve(arr, 0, "");
+        
+        dfs(arr, 0, "");
+        return res;
     }
     
-    
-    public int solve(List<String> arr, int i, String soFar)
-    {
-        if(i == arr.size())
-        {
-            if(isValid(soFar))
-            {
-                return soFar.length();
-            }
-            return 0;
+    private void dfs(List<String> l, int idx, String s) {
+        if (unique(s)) res = Math.max(res, s.length());
+        else return;
+        for (int i = idx; i < l.size(); i++) {  // start with idx;
+            if (unique(l.get(i))) dfs(l, i + 1, s + l.get(i));
         }
-        
-        int size1 = solve(arr, i+1, soFar);
-        int size2 = solve(arr, i+1, soFar+arr.get(i));
-        
-        return Math.max(size1, size2);
-
     }
     
-    
-    public boolean isValid(String s)
-    {
-        int[] freq = new int[26];
-        
-        for(int i=0;i<s.length();i++)
-        {
-            int val = s.charAt(i) - 'a';
-            freq[val]++;
-            
-            if(freq[val]>1)
-            {
-                return false;
-            }
+    private boolean unique(String s) {
+        int[] cnt = new int[26];
+        for (char c : s.toCharArray()) {
+            if (++cnt[c - 'a'] > 1) return false;
         }
-        
         return true;
-    } 
+    }
     
 }
