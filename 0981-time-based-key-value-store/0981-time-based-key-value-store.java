@@ -1,33 +1,39 @@
+class Data {
+    String val;
+    int time;
+    Data(String val, int time) {
+        this.val = val;
+        this.time = time;
+    }
+}
 class TimeMap {
-    Map<String,TreeMap<Integer,String>> map;
+
+    /** Initialize your data structure here. */
+    Map<String, List<Data>> map;
     public TimeMap() {
-        map = new HashMap<>();
+        map = new HashMap<String, List<Data>>();
     }
     
     public void set(String key, String value, int timestamp) {
-        if(!map.containsKey(key)){
-            map.put(key,new TreeMap<>());
-        }
-            map.get(key).put(timestamp,value);
-        
+        if (!map.containsKey(key)) map.put(key, new ArrayList<Data>());
+        map.get(key).add(new Data(value, timestamp));
     }
     
     public String get(String key, int timestamp) {
-       TreeMap<Integer,String> mp = map.get(key);
-        if(mp == null){
-            return "";
+        if (!map.containsKey(key)) return "";
+        return binarySearch(map.get(key), timestamp);
+    }
+      protected String binarySearch(List<Data> list, int time) {
+        int low = 0, high = list.size() - 1;
+        while (low < high) {
+            int mid = (low + high) >> 1;
+            if (list.get(mid).time == time) return list.get(mid).val;
+            if (list.get(mid).time < time) {
+                if (list.get(mid+1).time > time) return list.get(mid).val;
+                low = mid + 1;
+            }
+            else high = mid -1;
         }
-        Integer floor = mp.floorKey(timestamp);
-        if(floor == null)return "";
-        
-        return mp.get(floor);
-        
+        return list.get(low).time <= time ? list.get(low).val : "";
     }
 }
-
-/**
- * Your TimeMap object will be instantiated and called as such:
- * TimeMap obj = new TimeMap();
- * obj.set(key,value,timestamp);
- * String param_2 = obj.get(key,timestamp);
- */
