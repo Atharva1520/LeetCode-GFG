@@ -14,23 +14,22 @@
  * }
  */
 class Solution {
-    int cnt=0;
     public int countNodes(TreeNode root) {
+        int cnt=0;
         Set<TreeNode> vis = new HashSet<>();
-        
-        if(root == null)cnt =0;
-        dfs(root,vis);
-        return cnt;
-        
-    }
-    void dfs(TreeNode root,Set<TreeNode> vis){
-        if(root == null)return;
-        if(!vis.contains(root)){
-            cnt++;
-            vis.add(root);
+        Queue<TreeNode> q = new LinkedList<>();
+        if(root == null)return cnt;
+        q.add(root);
+        while(!q.isEmpty()){
+            int size = q.size();
+            for(int i=0;i<size;i++){
+                TreeNode cur = q.poll();
+                cnt++;
+                if(cur.left != null)q.add(cur.left);
+                if(cur.right != null)q.add(cur.right);
+                
+            }
         }
-        if(root.left != null)dfs(root.left,vis);
-        if(root.right != null)dfs(root.right,vis);
-        
+        return cnt;
     }
 }
